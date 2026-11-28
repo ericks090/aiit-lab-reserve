@@ -136,7 +136,7 @@
                             Sudah Terdaftar
                         </span>
                         <p class="text-xs text-slate-700 font-semibold mt-2">Vektor 128‑D Aktif</p>
-                        <button type="button" @click="showCamera = true; startCamera()" class="mt-3 w-full py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs">Daftar Ulang Wajah</button>
+                        <button type="button" @click="showCamera = true; startCamera()" class="mt-3 w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs shadow-sm transition-colors cursor-pointer">Daftar Ulang Wajah</button>
                     @else
                         <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-rose-100 text-rose-800 font-bold text-xs border border-rose-300">
                             <svg class="w-4 h-4 text-rose-700 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -164,7 +164,7 @@
                             </div>
                             <h4 class="font-bold text-base">Kamera Sedang Tidak Aktif</h4>
                             <p class="text-xs text-white/60 mt-1 max-w-xs">Nyalakan kamera untuk mengaktifkan video scanner wajah.</p>
-                            <button type="button" @click="startCamera()" :disabled="isLoadingModels" class="mt-4 px-5 py-2.5 rounded-xl bg-mark-500 hover:bg-mark-400 text-ink-900 font-bold text-xs uppercase tracking-wider transition-transform active:scale-95 shadow-md flex items-center gap-2">
+                            <button type="button" @click="startCamera()" :disabled="isLoadingModels" class="mt-4 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold text-xs uppercase tracking-wider transition-transform active:scale-95 shadow-md flex items-center gap-2 cursor-pointer">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                                 Nyalakan Kamera
                             </button>
@@ -184,11 +184,15 @@
                     <div class="mt-2 h-1.5 w-full rounded-full bg-slate-200 overflow-hidden" x-show="isCameraRunning && !isProcessing">
                         <div class="h-full bg-blue-600 transition-all duration-150" :style="'width:' + Math.round(autoProgress * 100) + '%'"></div>
                     </div>
-                    <button type="button" x-show="livenessTimedOut" @click="livenessRetry = true" class="mt-2 w-full py-2 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-md cursor-pointer pointer-events-auto">Ulangi Tantangan</button>
+                    <button type="button" x-show="livenessTimedOut" @click="livenessTimedOut = false; livenessRetry = true"
+                            class="mt-2.5 w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer pointer-events-auto">
+                        <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        <span>Ulangi Tantangan / Coba Lagi</span>
+                    </button>
                     {{-- Manual Capture Button (requires liveness) --}}
                     <div class="mt-3.5 w-full">
                         <button type="button" @click="takeManualSnapshot()" :disabled="!isCameraRunning || isProcessing" class="w-full py-3 px-5 rounded-xl font-semibold text-sm tracking-wide transition-all shadow-md flex items-center justify-center gap-2"
-                                :class="isCameraRunning && !isProcessing ? 'bg-blue-600 hover:bg-blue-700 text-white cursor-pointer active:scale-[0.98]' : 'bg-slate-200 text-slate-500 border border-slate-300 cursor-not-allowed'">
+                                :class="isCameraRunning && !isProcessing ? 'bg-slate-900 hover:bg-slate-800 text-white cursor-pointer active:scale-[0.98]' : 'bg-slate-200 text-slate-600 border border-slate-300 cursor-not-allowed'">
                             <template x-if="isProcessing">
                                 <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/></svg>
                             </template>
@@ -226,7 +230,7 @@
                     {{-- Secondary Action Button (Also Triggers Manual Snapshot) --}}
                     <div class="pt-4 border-t border-rule space-y-3">
                         <button type="button" @click="takeManualSnapshot()" :disabled="!isCameraRunning || isProcessing" class="w-full py-3.5 px-6 rounded-xl font-semibold text-sm tracking-wide transition-all shadow-sm flex items-center justify-center gap-2.5"
-                                :class="isCameraRunning && !isProcessing ? 'bg-blue-600 hover:bg-blue-700 text-white cursor-pointer active:scale-[0.98]' : 'bg-slate-200 text-slate-500 border border-slate-300 cursor-not-allowed'">
+                                :class="isCameraRunning && !isProcessing ? 'bg-slate-900 hover:bg-slate-800 text-white cursor-pointer active:scale-[0.98]' : 'bg-slate-200 text-slate-600 border border-slate-300 cursor-not-allowed'">
                             <svg class="w-5 h-5 shrink-0" :class="isCameraRunning && !isProcessing ? 'text-white' : 'text-slate-500'" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0221 12z"/></svg>
                             <span :class="isCameraRunning && !isProcessing ? 'text-white' : 'text-slate-500'" x-text="isProcessing ? 'Menyimpan...' : 'Ambil Foto Wajah & Simpan'"></span>
                         </button>
@@ -281,11 +285,7 @@
             async initComponent() {
                 try {
                     this.statusText = 'Mengunduh model pendeteksi wajah...';
-                    await Promise.all([
-                        faceapi.nets.tinyFaceDetector.loadFromUri(this.modelUrl),
-                        faceapi.nets.faceLandmark68Net.loadFromUri(this.modelUrl),
-                        faceapi.nets.faceRecognitionNet.loadFromUri(this.modelUrl),
-                    ]);
+                    await window.FaceAutoCapture.loadModels(this.modelUrl);
                     this.isLoadingModels = false;
                     this.statusText = 'Model siap.';
                     if (!this.isRegistered) {
@@ -346,37 +346,29 @@
                     if (!this.isCameraRunning || video.paused || video.ended) {
                         return;
                     }
-                    if (video.readyState === 4) {
+                    if (video.readyState === 4 && !this.isProcessing) {
                         const displaySize = { width: video.videoWidth, height: video.videoHeight };
                         faceapi.matchDimensions(canvas, displaySize);
-                        const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.35 });
-                        const detection = await faceapi.detectSingleFace(video, options)
-                            .withFaceLandmarks()
-                            .withFaceDescriptor();
+                        // Fast loop: landmarks only (no descriptor) so blinks are not missed
+                        const detection = await window.FaceAutoCapture.detectFast(video);
+                        if (!this.isCameraRunning) return;
+                        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+                        if (this.livenessRetry) { this.autoCap.reset(); this.livenessRetry = false; this.livenessTimedOut = false; }
+                        // Always evaluate (also with null) so brief drops during a blink are tolerated
+                        const ac = this.autoCap.evaluate(detection, video);
+                        this.livenessTimedOut = ac.state === 'timeout';
+                        this.autoProgress = ac.progress;
+                        this.statusText = ac.message;
+                        this.isFaceDetected = ['stabilizing', 'liveness', 'ready'].includes(ac.state);
+                        this.detectionConfidence = detection ? Math.round(detection.detection.score * 100) : 0;
                         if (detection) {
-                            this.isFaceDetected = true;
-                            this.detectionConfidence = Math.round(detection.detection.score * 100);
-                            this.currentDescriptor = detection.descriptor;
                             const resized = faceapi.resizeResults(detection, displaySize);
-                            canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
                             faceapi.draw.drawDetections(canvas, resized);
-                            if (this.livenessRetry) { this.autoCap.reset(); this.livenessRetry = false; this.livenessTimedOut = false; }
-                            const ac = this.autoCap.evaluate(detection, video);
-                            this.livenessTimedOut = ac.state === 'timeout';
-                            this.autoProgress = ac.progress;
-                            this.statusText = ac.message;
-                            if (ac.ready && !this.isProcessing) {
-                                this.livenessPassed = true;
-                                this.autoCap.reset();
-                                this.takeManualSnapshot().finally(() => { this.livenessPassed = false; });
-                            }
-                        } else {
+                        }
+                        if (ac.ready && !this.isProcessing) {
+                            this.livenessPassed = true;
                             this.autoCap.reset();
-                            this.autoProgress = 0;
-                            this.statusText = 'Posisikan wajah di tengah kamera...';
-                            this.isFaceDetected = false;
-                            this.detectionConfidence = 0;
-                            canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+                            this.takeManualSnapshot().finally(() => { this.livenessPassed = false; });
                         }
                     }
                     this.animFrameId = requestAnimationFrame(detect);
@@ -391,25 +383,16 @@
                 }
                 if (this.isProcessing) return;
                 if (!this.livenessPassed) {
-                    this.showToastNotification('Verifikasi Keaktifan', 'Silakan berkedip 1 kali di depan kamera terlebih dahulu.', 'error');
+                    this.showToastNotification('Verifikasi Keaktifan', 'Berkedip perlahan 1 kali ke kamera terlebih dahulu.', 'error');
                     return;
                 }
                 this.isProcessing = true;
-                this.statusText = 'Mengambil sampel wajah saat ini...';
+                this.statusText = 'Kedipan valid, memverifikasi wajah...';
                 const video = this.$refs.video;
-                let descriptor = this.currentDescriptor;
+                let descriptor = null;
                 if (video && video.readyState === 4) {
-                    try {
-                        const instantOptions = new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.20 });
-                        const instantDetection = await faceapi.detectSingleFace(video, instantOptions)
-                            .withFaceLandmarks()
-                            .withFaceDescriptor();
-                        if (instantDetection && instantDetection.descriptor) {
-                            descriptor = Array.from(instantDetection.descriptor);
-                        }
-                    } catch (e) {
-                        console.warn('Instant detection error:', e);
-                    }
+                    // Extract the 128-d descriptor ONCE, only after the blink passed
+                    descriptor = await window.FaceAutoCapture.extractDescriptor(video);
                 }
                 if (!descriptor || descriptor.length < 64) {
                     this.isProcessing = false;

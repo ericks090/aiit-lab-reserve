@@ -73,7 +73,7 @@
                         </div>
                         <div class="text-xs font-bold text-white">Nyalakan Kamera untuk Perekaman Wajah</div>
                         <p class="text-[11px] text-white/60 mt-1 max-w-xs">Pastikan wajah Anda berada di tempat dengan pencahayaan yang cukup.</p>
-                        <button type="button" @click="startCamera()" class="mt-3 px-4 py-2 rounded-lg bg-mark-500 text-ink-900 text-xs font-bold hover:bg-mark-400 transition-colors cursor-pointer inline-flex items-center gap-1.5 shadow-md">
+                        <button type="button" @click="startCamera()" class="mt-3 px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold transition-colors cursor-pointer inline-flex items-center gap-1.5 shadow-md">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                             <span>Buka Kamera Webcam</span>
                         </button>
@@ -101,7 +101,7 @@
                         </div>
                         <div class="text-xs font-bold text-red-300">Kendala Kamera</div>
                         <div class="text-[11px] text-white/70 mt-1 max-w-xs leading-relaxed" x-text="errorMessage"></div>
-                        <button type="button" @click="startCamera()" class="mt-2.5 px-3 py-1.5 rounded-lg bg-mark-500 text-ink-900 text-xs font-bold hover:bg-mark-400 transition-colors cursor-pointer">
+                        <button type="button" @click="startCamera()" class="mt-2.5 px-3.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold shadow-md transition-colors cursor-pointer">
                             Coba Nyalakan Lagi
                         </button>
                     </div>
@@ -122,7 +122,7 @@
                         </template>
                         <div class="font-bold text-sm">Wajah Berhasil Dipindai!</div>
                         <div class="text-[11px] text-emerald-200 mt-0.5">Vektor biometrik & foto profil siap disimpan.</div>
-                        <button type="button" @click="retake()" class="mt-2.5 px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-md transition-colors cursor-pointer pointer-events-auto">
+                        <button type="button" @click="retake()" class="mt-2.5 px-3.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold shadow-md transition-colors cursor-pointer pointer-events-auto">
                             Foto Ulang
                         </button>
                     </div>
@@ -132,24 +132,29 @@
                 <div class="space-y-1.5 pt-1" x-show="isCameraRunning && !isCaptured && !isCameraLoading">
                     <div class="flex items-center justify-between text-xs">
                         <span class="font-medium" :class="isFaceDetected ? 'text-emerald-700' : 'text-ink-700/70'" x-text="statusText"></span>
-                        <span class="text-[11px] font-semibold text-blue-700" x-text="Math.round(autoProgress * 100) + '%'"></span>
+                        <span class="text-[11px] font-semibold text-slate-700" x-text="Math.round(autoProgress * 100) + '%'"></span>
                     </div>
                     <div class="h-1.5 w-full rounded-full bg-slate-200 overflow-hidden">
                         <div class="h-full bg-blue-600 transition-all duration-150" :style="'width:' + Math.round(autoProgress * 100) + '%'"></div>
                     </div>
                 </div>
-                <button type="button" x-show="livenessTimedOut" @click="livenessRetry = true" class="mt-2 w-full py-2 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-md cursor-pointer pointer-events-auto">Ulangi Tantangan</button>
+                <button type="button" x-show="livenessTimedOut" @click="livenessTimedOut = false; livenessRetry = true"
+                        class="mt-2 w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer pointer-events-auto">
+                    <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    <span>Ulangi Tantangan / Coba Lagi</span>
+                </button>
                 <div class="flex items-center justify-between text-xs pt-1" x-show="!isCameraRunning || isCaptured || isCameraLoading">
                     <span class="text-ink-700/70" x-text="statusText"></span>
                     <button type="button" x-show="isCaptured" @click="retake()"
-                            class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-md cursor-pointer inline-flex items-center gap-1.5">
+                            class="px-3.5 py-2 rounded-lg text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 shadow-sm cursor-pointer inline-flex items-center gap-1.5">
                         Foto Ulang
                     </button>
                 </div>
             </div>
 
             <button type="submit" :disabled="!isCaptured"
-                    class="btn-mark btn-lg w-full flex items-center justify-center gap-2 cursor-pointer shadow-md">
+                    :class="isCaptured ? 'bg-amber-500 hover:bg-amber-600 text-slate-950 shadow-md cursor-pointer' : 'bg-slate-200 text-slate-500 border border-slate-300 cursor-not-allowed'"
+                    class="w-full py-3 px-5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-colors">
                 <span>Daftarkan Wajah & Masuk</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
@@ -264,11 +269,7 @@ function legacyFaceSetup(initialUserId) {
             try {
                 if (!this.faceModelsLoaded) {
                     this.statusText = 'Memuat model AI deteksi wajah...';
-                    const loadModelPromise = Promise.all([
-                        faceapi.nets.tinyFaceDetector.loadFromUri(FACE_MODEL_URL),
-                        faceapi.nets.faceLandmark68Net.loadFromUri(FACE_MODEL_URL),
-                        faceapi.nets.faceRecognitionNet.loadFromUri(FACE_MODEL_URL),
-                    ]);
+                    const loadModelPromise = window.FaceAutoCapture.loadModels(FACE_MODEL_URL);
 
                     const timeoutModelPromise = new Promise((_, reject) => {
                         setTimeout(() => reject(new Error('Waktu pemuatan model AI habis (timeout).')), 12000);
@@ -359,10 +360,8 @@ function legacyFaceSetup(initialUserId) {
                             faceapi.matchDimensions(canvas, displaySize);
                         }
 
-                        const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.50 });
-                        const detection = await faceapi.detectSingleFace(video, options)
-                            .withFaceLandmarks()
-                            .withFaceDescriptor();
+                        // Fast loop: landmarks only (no descriptor) so blinks are not missed
+                        const detection = await window.FaceAutoCapture.detectFast(video);
 
                         if (curSession !== this.sessionId || this.isCaptured) return;
 
@@ -371,30 +370,31 @@ function legacyFaceSetup(initialUserId) {
                             if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
                         }
 
-                        if (detection) {
-                            if (this.livenessRetry) { this.autoCap.reset(); this.livenessRetry = false; this.livenessTimedOut = false; }
-                            const ac = this.autoCap.evaluate(detection, video);
-                            this.livenessTimedOut = ac.state === 'timeout';
-                            this.autoProgress = ac.progress;
-                            this.isFaceDetected = ['stabilizing', 'liveness', 'ready'].includes(ac.state);
-                            this.currentDescriptor = Array.from(detection.descriptor);
-                            this.statusText = ac.message;
+                        if (this.livenessRetry) { this.autoCap.reset(); this.livenessRetry = false; this.livenessTimedOut = false; }
+                        // Always evaluate (also with null) so brief drops during a blink are tolerated
+                        const ac = this.autoCap.evaluate(detection, video);
+                        this.livenessTimedOut = ac.state === 'timeout';
+                        this.autoProgress = ac.progress;
+                        this.isFaceDetected = ['stabilizing', 'liveness', 'ready'].includes(ac.state);
+                        this.statusText = ac.message;
 
-                            if (canvas) {
-                                const resized = faceapi.resizeResults(detection, displaySize);
-                                faceapi.draw.drawFaceLandmarks(canvas, resized);
-                            }
+                        if (detection && canvas) {
+                            const resized = faceapi.resizeResults(detection, displaySize);
+                            faceapi.draw.drawFaceLandmarks(canvas, resized);
+                        }
 
-                            if (ac.ready) {
+                        if (ac.ready) {
+                            // Extract the 128-d descriptor ONCE, only after the blink passed
+                            const descriptor = await window.FaceAutoCapture.extractDescriptor(video);
+                            if (curSession !== this.sessionId || this.isCaptured) return;
+                            if (descriptor) {
+                                this.currentDescriptor = descriptor;
                                 this.captureFace();
                                 return;
                             }
-                        } else {
                             this.autoCap.reset();
-                            this.autoProgress = 0;
-                            this.isFaceDetected = false;
                             this.currentDescriptor = null;
-                            this.statusText = 'Posisikan wajah di tengah kamera...';
+                            this.statusText = 'Wajah hilang dari kamera, ulangi kedipan...';
                         }
                     } catch (dErr) {
                         console.warn(dErr);

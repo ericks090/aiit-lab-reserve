@@ -64,22 +64,22 @@
                     Akun ini belum memiliki data sampel wajah biometrik terdaftar. Klik tombol di bawah untuk memindai wajah Anda sekarang dan langsung masuk ke sistem.
                 </p>
                 <button type="button" @click="openModal('enroll')"
-                        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-bold transition-colors cursor-pointer text-xs shadow-sm">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold transition-colors cursor-pointer text-xs shadow-sm">
+                    <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                     <span>Pindai Wajah Sekarang & Masuk</span>
                 </button>
             </div>
 
             {{-- Submit button when face exists --}}
             <template x-if="selectedUserHasFace">
-                <button type="submit" class="btn-mark btn-lg w-full flex items-center justify-center gap-2 cursor-pointer shadow-md">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                <button type="submit" class="w-full py-3 px-5 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md transition-colors">
+                    <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
                     <span>Verifikasi Wajah & Masuk</span>
                 </button>
             </template>
 
             <template x-if="!selectedUserId">
-                <button type="button" @click="promptSelectUser()" class="btn-mark btn-lg w-full opacity-60 cursor-not-allowed">
+                <button type="button" @click="promptSelectUser()" class="w-full py-3 px-5 rounded-xl bg-slate-200 text-slate-600 border border-slate-300 font-semibold text-sm cursor-not-allowed">
                     <span>Pilih Akun Terlebih Dahulu</span>
                 </button>
             </template>
@@ -127,8 +127,8 @@
                                 </div>
                                 <h3 class="text-base font-bold text-ink-900" x-text="modalMode === 'enroll' ? 'Pendaftaran Wajah Pertama Kali' : 'Verifikasi Wajah Pengguna'"></h3>
                             </div>
-                            <button type="button" @click="closeModal()" class="w-8 h-8 rounded-lg flex items-center justify-center text-ink-400 hover:text-ink-900 hover:bg-ink-50 transition-colors cursor-pointer" title="Tutup">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            <button type="button" @click="closeModal()" class="w-8 h-8 rounded-lg flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border border-slate-300 transition-colors cursor-pointer" title="Tutup">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                             </button>
                         </div>
 
@@ -180,7 +180,7 @@
                                 </div>
                                 <div class="text-xs font-bold text-red-300" x-text="modalMode === 'enroll' ? 'Kendala Pendaftaran Wajah' : 'Verifikasi Tidak Cocok'"></div>
                                 <div class="text-[11px] text-white/70 mt-1 max-w-xs leading-relaxed" x-text="errorMessage || statusText"></div>
-                                <button type="button" @click="retryFaceScan()" class="mt-3 px-3.5 py-1.5 rounded-lg bg-mark-500 text-ink-900 text-xs font-bold hover:bg-mark-400 transition-colors cursor-pointer">
+                                <button type="button" @click="retryFaceScan()" class="mt-3 px-4 py-2 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold shadow-md transition-colors cursor-pointer">
                                     Coba Pindai Lagi
                                 </button>
                             </div>
@@ -222,16 +222,20 @@
                             <div class="h-full bg-blue-600 transition-all duration-150" :style="'width:' + Math.round(autoProgress * 100) + '%'"></div>
                         </div>
 
-                        <button type="button" x-show="livenessTimedOut" @click="livenessRetry = true" class="mt-2 w-full py-2 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shadow-md cursor-pointer pointer-events-auto">Ulangi Tantangan</button>
+                        <button type="button" x-show="livenessTimedOut" @click="livenessTimedOut = false; livenessRetry = true"
+                                class="mt-2.5 w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-md transition-colors flex items-center justify-center gap-1.5 cursor-pointer pointer-events-auto">
+                            <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                            <span>Ulangi Tantangan / Coba Lagi</span>
+                        </button>
                         {{-- Multi-step Actions (Never disabled during loading) --}}
-                        <div class="mt-4 pt-3 border-t border-rule flex items-center justify-between gap-2">
+                        <div class="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between gap-2">
                             <button type="button" @click="closeModal()"
-                                    class="flex-1 py-2.5 px-3 rounded-xl border border-rule text-xs font-semibold text-ink-700 hover:bg-ink-50 transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
-                                <svg class="w-3.5 h-3.5 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-                                <span>Kembali</span>
+                                    class="flex-1 py-2.5 px-3.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-300 text-xs font-semibold transition-colors flex items-center justify-center gap-1.5 cursor-pointer">
+                                <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                                <span>Batal / Tutup</span>
                             </button>
                             <button type="button" x-show="isError" @click="retryFaceScan()"
-                                    class="py-2.5 px-4 rounded-xl bg-ink-900 text-white text-xs font-bold hover:bg-ink-800 transition-colors cursor-pointer">
+                                    class="py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-sm transition-colors cursor-pointer">
                                 Coba Lagi
                             </button>
                         </div>
@@ -437,11 +441,7 @@ function selectUserLogin() {
                 // 1. Inisialisasi Model AI dengan timeout 12 detik
                 if (!this.faceModelsLoaded) {
                     this.statusText = 'Memuat model AI deteksi wajah...';
-                    const loadModelPromise = Promise.all([
-                        faceapi.nets.tinyFaceDetector.loadFromUri(FACE_MODEL_URL),
-                        faceapi.nets.faceLandmark68Net.loadFromUri(FACE_MODEL_URL),
-                        faceapi.nets.faceRecognitionNet.loadFromUri(FACE_MODEL_URL),
-                    ]);
+                    const loadModelPromise = window.FaceAutoCapture.loadModels(FACE_MODEL_URL);
 
                     const timeoutModelPromise = new Promise((_, reject) => {
                         setTimeout(() => reject(new Error('Waktu pengunduhan model AI habis (timeout).')), 12000);
@@ -536,10 +536,8 @@ function selectUserLogin() {
                             faceapi.matchDimensions(canvas, displaySize);
                         }
 
-                        const options = new faceapi.TinyFaceDetectorOptions({ inputSize: 224, scoreThreshold: 0.50 });
-                        const detection = await faceapi.detectSingleFace(video, options)
-                            .withFaceLandmarks()
-                            .withFaceDescriptor();
+                        // Fast loop: landmarks only (no descriptor) so blinks are not missed
+                        const detection = await window.FaceAutoCapture.detectFast(video);
 
                         if (curSession !== this.sessionId || !this.showFaceModal || this.isSuccess) return;
 
@@ -548,38 +546,41 @@ function selectUserLogin() {
                             if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
                         }
 
-                        if (detection) {
-                            if (this.livenessRetry) { autoCap.reset(); this.livenessRetry = false; this.livenessTimedOut = false; }
+                        if (this.livenessRetry) { autoCap.reset(); this.livenessRetry = false; this.livenessTimedOut = false; }
+                        // Always evaluate (also with null) so brief drops during a blink are tolerated
                         const ac = autoCap.evaluate(detection, video);
                         this.livenessTimedOut = ac.state === 'timeout';
-                            this.autoProgress = ac.progress;
-                            this.isFaceDetected = ['stabilizing', 'liveness', 'ready'].includes(ac.state);
-                            this.currentDescriptor = Array.from(detection.descriptor);
+                        this.autoProgress = ac.progress;
+                        this.isFaceDetected = ['stabilizing', 'liveness', 'ready'].includes(ac.state);
+                        this.statusText = ac.message;
 
-                            if (canvas) {
-                                const resized = faceapi.resizeResults(detection, displaySize);
-                                faceapi.draw.drawFaceLandmarks(canvas, resized);
-                            }
+                        if (detection && canvas) {
+                            const resized = faceapi.resizeResults(detection, displaySize);
+                            faceapi.draw.drawFaceLandmarks(canvas, resized);
+                        }
 
-                            if (ac.ready) {
+                        if (ac.ready) {
+                            verifyAttempted = true;
+                            // Extract the 128-d descriptor ONCE, only after the blink passed
+                            const descriptor = await window.FaceAutoCapture.extractDescriptor(video);
+                            if (curSession !== this.sessionId || !this.showFaceModal) return;
+                            if (!descriptor) {
+                                verifyAttempted = false;
+                                autoCap.reset();
+                                this.currentDescriptor = null;
+                                this.statusText = 'Wajah hilang dari kamera, ulangi kedipan...';
+                            } else {
+                                this.currentDescriptor = descriptor;
                                 this.statusText = this.modalMode === 'enroll'
-                                    ? 'Berhasil dipindai! Menyimpan sampel biometrik...'
-                                    : 'Berhasil dipindai! Memverifikasi ke akun Anda...';
-                                verifyAttempted = true;
+                                    ? 'Kedipan valid, menyimpan sampel biometrik...'
+                                    : 'Kedipan valid, memverifikasi wajah...';
                                 if (this.modalMode === 'enroll') {
-                                    await this.enrollWithServer(this.currentDescriptor, curSession);
+                                    await this.enrollWithServer(descriptor, curSession);
                                 } else {
-                                    await this.verifyWithServer(this.currentDescriptor, curSession);
+                                    await this.verifyWithServer(descriptor, curSession);
                                 }
                                 return;
                             }
-                            this.statusText = ac.message;
-                        } else {
-                            autoCap.reset();
-                            this.autoProgress = 0;
-                            this.isFaceDetected = false;
-                            this.currentDescriptor = null;
-                            this.statusText = 'Posisikan wajah di tengah kamera...';
                         }
                     } catch (dErr) {
                         console.warn('Loop error:', dErr);
@@ -598,7 +599,8 @@ function selectUserLogin() {
 
         async triggerManualCapture() {
             if (!this.isFaceDetected || this.isProcessing) return;
-            const descriptor = this.currentDescriptor;
+            const descriptor = this.currentDescriptor
+                || await window.FaceAutoCapture.extractDescriptor(this.getVideo());
             if (!descriptor) return;
             this.isProcessing = true;
             this.statusText = this.modalMode === 'enroll'

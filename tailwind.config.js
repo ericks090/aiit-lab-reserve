@@ -32,12 +32,15 @@ export default {
                 /* === INK (deep navy — primary brand) === */
                 ink: {
                     DEFAULT: '#0F2460',
+                    950:     '#06102E',
                     900:     '#0A1A47',  // sidebar background
                     800:     '#0F2460',  // brand surface
                     700:     '#1A3C8F',
                     600:     '#2952B3',
                     500:     '#3B68D4',
                     400:     '#5585E8',
+                    300:     '#93B4F5',
+                    200:     '#BFDBFE',
                     100:     '#DBEAFE',
                     50:      '#EEF2FF',
                 },
@@ -45,9 +48,11 @@ export default {
                 /* === MARK (yellow — the ONE highlight) === */
                 mark: {
                     DEFAULT: '#F5B800',
+                    700:     '#B48600',
                     600:     '#D9A300',  // hover
                     500:     '#F5B800',
                     400:     '#F7C933',
+                    200:     '#FDE68A',
                     100:     '#FEF3C7',
                     50:      '#FFFBEB',
                 },
